@@ -10,6 +10,9 @@ class Employee:
 
     def __init__(self, name, job_title, department_id, id=None):
         self.id = id
+        self._name = None
+        self._job_title = None
+        self._department_id = None
         self.name = name
         self.job_title = job_title
         self.department_id = department_id
@@ -19,6 +22,39 @@ class Employee:
             f"<Employee {self.id}: {self.name}, {self.job_title}, " +
             f"Department ID: {self.department_id}>"
         )
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        if isinstance(name, str) and len(name):
+            self._name = name
+        else:
+            raise ValueError("Name must be a non-empty string.")
+
+    @property
+    def job_title(self):
+        return self._job_title
+
+    @job_title.setter
+    def job_title(self, job_title):
+        if isinstance(job_title, str) and len(job_title):
+            self._job_title = job_title
+        else:
+            raise ValueError("Job title must be a non-empty string.")
+
+    @property
+    def department_id(self):
+        return self._department_id
+
+    @department_id.setter
+    def department_id(self, department_id):
+        if isinstance(department_id, int) and Department.find_by_id(department_id):
+            self._department_id = department_id
+        else:
+            raise ValueError("Department ID must be a valid integer foreign key.")
 
     @classmethod
     def create_table(cls):
